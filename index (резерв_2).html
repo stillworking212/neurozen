@@ -1707,108 +1707,25 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/gh/vikcpa/neurozen/assets/js/main.js"></script>
-    
-	
-	
-	<!-- Timer Script -->
-	
-	<script>
-  // Countdown start function
-  function startCountdown() {
-    // to avoid starting the timer twice
-    if (startCountdown.alreadyStarted) return;
-    startCountdown.alreadyStarted = true;
+    <script>
+      let tempoTotal = 29 * 60 + 53;
+      const elementoCountdown = document.getElementById("countdown");
+      const intervalo = setInterval(function () {
+        if (tempoTotal < 0) {
+          clearInterval(intervalo);
+          elementoCountdown.innerHTML = "00:00";
+          return;
+        }
+        let minutos = Math.floor(tempoTotal / 60);
+        let segundos = tempoTotal % 60;
 
-    let tempoTotal = 29 * 60 + 53; // 29:53
-    const elementoCountdown = document.getElementById("countdown");
-    if (!elementoCountdown) return;
-
-    // initial value (just in case)
-    elementoCountdown.innerHTML = "29:53";
-
-    const intervalo = setInterval(function () {
-      if (tempoTotal < 0) {
-        clearInterval(intervalo);
-        elementoCountdown.innerHTML = "00:00";
-        return;
-      }
-
-      let minutos = Math.floor(tempoTotal / 60);
-      let segundos = tempoTotal % 60;
-
-      segundos = segundos < 10 ? "0" + segundos : segundos;
-      minutos = minutos < 10 ? "0" + minutos : minutos;
-
-      elementoCountdown.innerHTML = `${minutos}:${segundos}`;
-      tempoTotal--;
-    }, 1000);
-  }
-
-  // Starting a timer after revealing hidden content with [data-delay]
-  document.addEventListener("DOMContentLoaded", function () {
-    const delayed = document.querySelector("[data-delay]");
-    if (!delayed) {
-      // If suddenly there is no block, just launch it immediately
-      startCountdown();
-      return;
-    }
-
-    // Check function: is the block open or still hidden?
-    function isHidden(el) {
-      const style = window.getComputedStyle(el);
-      return (
-        style.display === "none" ||
-        style.visibility === "hidden" ||
-        el.hidden ||
-        el.classList.contains("hide")
-      );
-    }
-
-    // If it's already open (just in case), launch it immediately.
-    if (!isHidden(delayed)) {
-      startCountdown();
-      return;
-    }
-
-    // Monitoring changes in styles/classes/hidden
-    const observer = new MutationObserver(function () {
-      if (!isHidden(delayed)) {
-        startCountdown();
-        observer.disconnect();
-      }
-    });
-
-    observer.observe(delayed, {
-      attributes: true,
-      attributeFilter: ["style", "class", "hidden"],
-    });
-  });
-</script>
-
-	
-	
-	
-	<!-- Old version Timer -->
-	<!-- <script> -->
-      <!-- let tempoTotal = 29 * 60 + 53; -->
-      <!-- const elementoCountdown = document.getElementById("countdown"); -->
-      <!-- const intervalo = setInterval(function () { -->
-        <!-- if (tempoTotal < 0) { -->
-          <!-- clearInterval(intervalo); -->
-          <!-- elementoCountdown.innerHTML = "00:00"; -->
-          <!-- return; -->
-        <!-- } -->
-        <!-- let minutos = Math.floor(tempoTotal / 60); -->
-        <!-- let segundos = tempoTotal % 60; -->
-
-        <!-- segundos = segundos < 10 ? "0" + segundos : segundos; -->
-        <!-- minutos = minutos < 10 ? "0" + minutos : minutos; -->
-        <!-- elementoCountdown.innerHTML = `${minutos}:${segundos}`; -->
-        <!-- tempoTotal--; -->
-      <!-- }, 1000); -->
-    <!-- </script> -->
-    
-	<script>
+        segundos = segundos < 10 ? "0" + segundos : segundos;
+        minutos = minutos < 10 ? "0" + minutos : minutos;
+        elementoCountdown.innerHTML = `${minutos}:${segundos}`;
+        tempoTotal--;
+      }, 1000);
+    </script>
+    <script>
       const swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
         spaceBetween: 20,
@@ -1826,32 +1743,15 @@
         },
       });
     </script>
-	
-	
-	<!-- Start - Manage Hiden content -->
-	<script>
-	  const PLAYER_ID = "#vid-68fc08453dfc7ec69e115cfb";
-	</script>
-
-	<script>
-	  var delaySeconds = 29 * 60 + 53;
-	  var player = document.querySelector(PLAYER_ID);
-	  player.addEventListener("player:ready", function () {
-		player.displayHiddenElements(delaySeconds, ["[data-delay]"], { persist: true });
-	  });
-	</script>
-
-	<script>
-	  document.addEventListener('keydown', function (e) {
-		if (e.shiftKey && e.key.toLowerCase() === 'f') {
-		  var player = document.querySelector(PLAYER_ID);
-		  if (player?.displayHiddenElements) {
-			player.displayHiddenElements(0, ["[data-delay]"], { persist: true });
-		  }
-		}
-	  });
-	</script>
-	<!-- END -->
+    <script>
+      var delaySeconds = 29 * 60 + 53; //
+      var player = document.querySelector("#vid-68fc08453dfc7ec69e115cfb");
+      player.addEventListener("player:ready", function () {
+        player.displayHiddenElements(delaySeconds, ["[data-delay]"], {
+          persist: true,
+        });
+      });
+    </script>
 
     <!-- Protection Styles -->
 

@@ -1,0 +1,58 @@
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+  const appleWrap = document.getElementById("cc-id-8GsvZBXeeTSY");
+  const appleBtn  = document.getElementById("cc-id-4D2vGO1FTtwS");
+
+  if (!appleWrap) return;
+
+  // Проверка: Safari ли это (иначе Apple Pay точно не работает)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (!isSafari) {
+    appleWrap.style.display = "none";
+    return;
+  }
+
+  // Проверка: ApplePaySession доступен
+  if (!window.ApplePaySession || !ApplePaySession.supportsVersion(1)) {
+    appleWrap.style.display = "none";
+    return;
+  }
+
+  // Проверка базовой возможности оплаты
+  let canPay = false;
+  try {
+    canPay = await ApplePaySession.canMakePayments();
+  } catch (e) {
+    canPay = false;
+  }
+
+  if (!canPay) {
+    // Нет карт, регион не поддерживается или Apple Pay не настроен
+    appleWrap.style.display = "none";
+    return;
+  }
+
+  // Проверка активных карт (если доступно)
+  // ⚠ merchantId должен быть настоящий
+  const merchantId = "merchant.com.example"; // ЗАМЕНИ на свой реальный!
+
+  if (ApplePaySession.canMakePaymentsWithActiveCard) {
+    try {
+      const active = await ApplePaySession.canMakePaymentsWithActiveCard(merchantId);
+
+      if (!active) {
+        // Есть Apple Pay, но нет активных карт → скрываем кнопку
+        appleWrap.style.display = "none";
+        return;
+      }
+    } catch (e) {
+      // Если merchantId неверный — просто игнорируем и используем basic canMakePayments
+    }
+  }
+
+  // Если все проверки пройдены — Apple Pay показываем
+  appleWrap.style.display = "flex";
+  if (appleBtn) appleBtn.style.display = "block";
+});
+</script>

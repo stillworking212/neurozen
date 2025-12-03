@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroZen - Exclusive Offer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
@@ -15,42 +14,256 @@
         />
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap');
+        
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+
+        /* --- Global Reset --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- CSS Variables --- */
+        :root {
+            --neuro-teal: #0f4c5c;
+            --neuro-gold: #d4af37;
+            --green-500: #10b981;
+            --green-600: #059669; /* Hover state */
+            --red-600: #dc2626;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
+            background-color: var(--gray-100);
+            color: var(--gray-600);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; /* Исправлено */
+            align-items: center;
+            padding: 2.5rem 0;
         }
 
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Animation for the reveal */
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Custom Colors */
-        .bg-neuro-teal { background-color: #0f4c5c; }
-        .text-neuro-teal { color: #0f4c5c; }
-        .bg-neuro-gold { background-color: #d4af37; }
-        .text-neuro-gold { color: #d4af37; }
+        h1, h2, h3, h4 { color: var(--gray-900); line-height: 1.2; }
+        .font-serif { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
         
-        .btn-pulse {
-            animation: pulse-green 2s infinite;
+        /* --- Utilities --- */
+        .text-center { text-align: center; }
+        .hidden-mobile { display: none; } /* Скрыто на мобильных по умолчанию */
+        
+        /* --- Container --- */
+        .container {
+            width: 100%;
+            max-width: 56rem; /* эквивалент max-w-4xl */
+            padding: 0 1rem;
+            margin-bottom: 2rem;
         }
+
+        /* --- Header Section --- */
+        .hero-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 1.875rem;
+            font-weight: 800;
+            color: var(--neuro-teal);
+            margin-bottom: 1rem;
+			line-height: 1;
+        }
+        .hero-desc {
+            font-size: 1.25rem;
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        /* --- Card Styles --- */
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--gray-100);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* По умолчанию колонка (mobile first) */
+            width: 100%;
+        }
+
+        /* Модификатор для горизонтального лейаута на десктопе (первая карточка) */
+        .card-responsive-row {
+            flex-direction: column;
+        }
+
+        /* --- Card Parts --- */
+        .card-img-section {
+            width: 100%;
+            background: linear-gradient(to bottom right, var(--gray-50), var(--gray-100));
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .card-content-section {
+            width: 100%;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Images */
+        .img-wrapper {
+            position: relative;
+            transition: transform 0.5s;
+            cursor: pointer;
+            width: 100%;
+            max-width: 100%;
+        }
+        .img-wrapper:hover { transform: scale(1.05); }
+        
+        .product-img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.75rem;
+            filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.1));
+            display: block;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background-color: var(--neuro-teal);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.4rem 0.75rem 0.3rem;
+            border-radius: 9999px;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+        .badge-yellow {
+            background-color: #fef3c7; 
+            color: #92400e;
+        }
+        .discount-badge {
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+            background-color: var(--red-600);
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: rotate(12deg);
+            z-index: 10;
+        }
+
+        /* Typography inside cards */
+        .card-h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+        .card-p {
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* Check list */
+        .check-list {
+            list-style: none;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        .check-list li {
+            position: relative;
+            padding-left: 1.5em;
+            margin-bottom: 0.75em;
+        }
+        .check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green-500);
+            font-weight: bold;
+        }
+
+        /* Price Section */
+		.price-box {
+			display: flex;
+			align-items: flex-end;   /* как в Tailwind items-end */
+			gap: 1rem;               /* эквивалент gap-4 */
+			margin-bottom: 1.5rem;
+			border-top: 1px solid var(--gray-100);
+			padding-top: 1.5rem;     /* эквивалент pt-6 */
+		}
+		
+		.price-box2 {
+			display: flex;
+			align-items: center;   /* как в Tailwind items-end */
+			gap: 1rem;               /* эквивалент gap-4 */
+			margin-bottom: 1.5rem;
+			border-top: 1px solid var(--gray-100);
+			padding-top: 1.5rem;     /* эквивалент pt-6 */
+		}
+        .price-box.center { justify-content: center; }
+		.price-box2.center { justify-content: center; }
+
+		.price-col {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.price-col2 {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		transform: translateY(10px);
+	}
+        .label-sm { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: var(--gray-400); }
+        .label-green { color: #16a34a; }
+        .price-strike { text-decoration: line-through; color: var(--gray-400); font-size: 1.125rem; }
+		.price-strike2 { margin-top: 0.2rem; text-decoration: line-through; color: var(--gray-400); font-size: 1.125rem; }
+        .price-main { font-size: 2.25rem; font-weight: bold; color: var(--neuro-teal); }
+        .price-promo { font-size: 1.875rem; font-weight: bold; color: var(--green-600); }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            background-color: var(--green-500);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--green-600);
+            transform: translateY(-4px);
+        }
+        .btn-pulse { animation: pulse-green 2s infinite; }
 
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
@@ -58,184 +271,246 @@
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* Checkmark list style */
-        .check-list li {
-            position: relative;
-            padding-left: 1.5em;
-            margin-bottom: 0.5em;
+        /* Footer / Guarantee */
+        .guarantee {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--gray-500);
         }
-        .check-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10b981; /* green-500 */
-            font-weight: bold;
+        .g-item { display: flex; align-items: center; gap: 0.25rem; }
+
+        /* Separator */
+        .separator {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            opacity: 0.5;
+            z-index: 10;
+        }
+        .plus-icon {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            width: 40px; 
+            height: 40px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+
+        /* Features Grid */
+        .feat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            max-width: 32rem;
+            margin: 3rem auto 0;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+        .feat-grid:hover { filter: grayscale(0%); opacity: 1; }
+        .feat-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .feat-item span { font-size: 0.75rem; font-weight: bold; }
+        .icon-lg { font-size: 1.875rem; margin-bottom: 0.5rem; color: var(--neuro-teal); }
+
+        /* Animation */
+        .fade-in { animation: fadeInUp 0.8s ease-out forwards; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- DESKTOP MEDIA QUERY (min-width: 768px) --- */
+        @media (min-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hidden-mobile { display: inline; }
+            
+            /* Первая карточка становится строкой */
+            .card-responsive-row {
+                flex-direction: row;
+            }
+            .card-responsive-row .card-img-section {
+                width: 50%;
+                border-bottom: none;
+                border-right: 1px solid var(--gray-100);
+            }
+            .card-responsive-row .card-content-section {
+                width: 50%;
+                padding: 2.5rem;
+            }
+
+            /* Вторая карточка (Upsell) ОСТАЕТСЯ колонкой (как в оригинале), 
+               но меняем отступы */
+            .card-upsell .card-content-section {
+                padding: 2.5rem;
+            }
+            /* Ограничиваем ширину картинки во втором блоке на десктопе, 
+               чтобы она не была гигантской */
+            .card-upsell .img-wrapper {
+                max-width: 42rem;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
+<body>
 
-    <div class="w-full max-w-4xl px-4 mb-8">
+    <div class="container">
         
-        <div class="text-center mb-8 fade-in-up">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-neuro-teal mb-4 font-serif">
+        <div class="hero-header fade-in">
+            <h1 class="hero-title font-serif">
                 Limited Discount Unlocked — Don’t Miss Your Cognitive Upgrade
             </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p class="hero-desc">
                 Secure your supply of the #1 cognitive restoration formula.
             </p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden fade-in-up">
-            <div class="flex flex-col md:flex-row">
+        <div class="card card-responsive-row fade-in">
+            
+            <div class="card-img-section">
+                <div class="img-wrapper">
+                    <img 
+                        src="https://cdn.jsdelivr.net/gh/vikcpa/neurozen/return_upsell/img/6kit_clear.png"
+                        alt="NeuroZen 6 Bottle Kit" 
+                        class="product-img"
+                    >
+                    <div class="discount-badge">
+                        SAVE 84%
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content-section">
+                <div class="badge">
+                    BEST VALUE PACKAGE
+                </div>
                 
-                <div class="w-full md:w-1/2 bg-gradient-to-br from-gray-50 to-gray-100 p-8 flex items-center justify-center relative border-b md:border-b-0 md:border-r border-gray-100">
-                    <div class="relative transform hover:scale-105 transition duration-500">
-                        <img 
-                            src="https://cdn.jsdelivr.net/gh/vikcpa/neurozen/return_upsell/img/6kit_clear.png"
-                            alt="NeuroZen 6 Bottle Kit" 
-                            class="w-full h-auto drop-shadow-2xl rounded-xl"
-                        >
-                        <div class="absolute -top-4 -right-4 bg-red-600 text-white font-bold px-4 py-2 rounded-full shadow-lg transform rotate-12">
-                            SAVE 84%
-                        </div>
+                <h2 class="card-h2">NeuroZen 6-Month Supply</h2>
+                
+                <p class="card-p" style="color: var(--gray-600);">
+                    Don't let "brain fog" or forgetfulness slow you down. This powerful formula supports neuron health, improves recall speed, and clears mental clutter.
+                </p>
+
+                <ul class="check-list">
+                    <li><strong>Sharper Memory:</strong> Recall names, dates, and details instantly.</li>
+                    <li><strong>Laser Focus:</strong> Stay concentrated on tasks without mental fatigue.</li>
+                    <li><strong>Neuron Protection:</strong> Ingredients that shield your brain from aging.</li>
+                </ul>
+
+                <div class="price-box">
+                    <div class="price-col">
+                        <span class="label-sm">Regular Price</span>
+                        <span class="price-strike">$1074</span>
+                    </div>
+                    <div class="price-col2">
+                        <span class="label-sm label-green">Your Price</span>
+                        <span class="price-main">$174</span>
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center">
-                    <div class="inline-block bg-neuro-teal text-white text-xs font-bold px-3 py-1 rounded-full w-fit mb-4">
-                        BEST VALUE PACKAGE
-                    </div>
-                    
-                    <h2 class="text-2xl font-bold text-gray-900 mb-4">NeuroZen 6-Month Supply</h2>
-                    
-                    <p class="text-gray-600 text-sm mb-6">
-                        Don't let "brain fog" or forgetfulness slow you down. This powerful formula supports neuron health, improves recall speed, and clears mental clutter.
-                    </p>
-
-                    <ul class="check-list space-y-3 text-gray-700 text-sm mb-8">
-                        <li><strong>Sharper Memory:</strong> Recall names, dates, and details instantly.</li>
-                        <li><strong>Laser Focus:</strong> Stay concentrated on tasks without mental fatigue.</li>
-                        <li><strong>Neuron Protection:</strong> Ingredients that shield your brain from aging.</li>
-                    </ul>
-
-                    <div class="flex items-end gap-4 mb-6 border-t border-gray-100 pt-6">
-                        <div class="flex flex-col">
-                            <span class="text-gray-400 text-xs uppercase font-bold">Regular Price</span>
-                            <span class="text-gray-400 line-through text-lg">$1074</span>
-                        </div>
-                        <div class="flex flex-col">
-                            <span class="text-green-600 text-xs uppercase font-bold">Your Price</span>
-                            <span class="text-4xl font-bold text-neuro-teal">$174</span>
-                        </div>
-                    </div>
-
-                    <button 
-						onclick="window.location.href='checkout2?products=5:1'" 
-						class="w-full bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-4 px-6 rounded-lg shadow-lg transform transition hover:-translate-y-1 btn-pulse flex items-center justify-center gap-3">
-                        <span>Purchase</span>
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                    
-					 <div class="mt-4 flex items-center justify-center gap-4 text-xs text-gray-500">
-                        
-                        <div class="flex items-center gap-1"><i class="fas fa-check-circle"></i> 60-Day Money Back Guarantee</div>
-                    </div>
-                  
+                <a href="checkout2?products=5:1" class="btn btn-pulse" 
+					title="Add 6-Neurozen" style="text-decoration:none;">
+					<span>Purchase</span>
+					<i class="fas fa-shopping-cart"></i>
+				</a>
+                
+				<div class="guarantee">
+                    <div class="g-item"><i class="fas fa-check-circle"></i> 60-Day Money Back Guarantee</div>
                 </div>
+              
             </div>
         </div>
     </div>
 
-    <div class="w-full flex justify-center mb-8 relative z-10 opacity-50">
-        <div class="bg-white p-2 rounded-full shadow-md">
-            <i class="fas fa-plus text-xl text-gray-400"></i>
+    <div class="separator">
+        <div class="plus-icon">
+            <i class="fas fa-plus" style="font-size: 1.25rem; color: #9ca3af;"></i>
         </div>
     </div>
 
 
-    <div class="w-full max-w-4xl px-4 pb-20 fade-in-up" style="animation-delay: 0.2s;">
+    <div class="container fade-in" style="animation-delay: 0.2s; padding-bottom: 5rem;">
         
-        <div class="text-center mb-10">
-            <h2 class="text-neuro-teal font-bold uppercase tracking-wide text-sm mb-2">Recommended Upgrade</h2>
-            <h3 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 font-serif">
-                Add The "Rocket Fuel"<br class="hidden md:block"> To Your Order
+        <div class="hero-header">
+            <h2 style="color: var(--neuro-teal); font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.875rem; margin-bottom: 0.5rem;">Recommended Upgrade</h2>
+            <h3 class="hero-title font-serif" style="color: var(--gray-900); margin-bottom: 1rem;">
+                Add The "Rocket Fuel"<br class="hidden-mobile"> To Your Order
             </h3>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p class="hero-desc" style="color: var(--gray-600); font-size: 1.125rem;">
                 NeuroZen is the weapon. <strong>The Acoustic Protocol is the trigger.</strong> Clear the "Zombie Cells" blocking your neural pathways so your brain is ready to absorb nutrients instantly.
             </p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-            <div class="flex flex-col">
+        <div class="card card-upsell">
+            <div class="card-img-section" style="border-bottom: 1px solid var(--gray-100); border-right: none;">
+                <div class="img-wrapper">
+                    <img 
+                        src="https://cdn.jsdelivr.net/gh/vikcpa/neurozen/return_upsell/img/neurozen_acoustic_protocol.webp" 
+                        alt="The NeuroZen Acoustic Protocol" 
+                        class="product-img"
+                    >
+                </div>
+            </div>
+
+            <div class="card-content-section text-center">
+                <div style="display: flex; justify-content: center;">
+                    <div class="badge badge-yellow">
+                        VIP ONE-TIME OFFER
+                    </div>
+                </div>
+                <h4 class="card-h2" style="font-size: 1.5rem;">Clear "Electrical Stagnation" In 12 Minutes A Day</h4>
+                <p class="card-p" style="max-width: 42rem; margin: 0 auto 1.5rem auto;">
+                    Years of toxicity have left "roadblocks" in your neural pathways. NeuroZen acts as the fuel, but even the best fuel needs a clear highway.
+                    <br><br>
+                    This proprietary protocol uses <strong>Gamma Wave Entrainment</strong> to wake up your electrical system immediately, ensuring your neurons are wide open to absorb the Sidr Honey and Bacopa you just bought.
+                </p>
+
+                <div style="display: flex; justify-content: center;">
+                    <ul class="check-list" style="display: inline-block;">
+                        <li><strong>Zero Effort Required:</strong> Just listen and relax.</li>
+                        <li><strong>Medical-Grade Frequencies:</strong> Proprietary Gamma waves engineered to match NeuroZen.</li>
+                        <li><strong>Digital Instant Access:</strong> In your inbox in 2 minutes.</li>
+                    </ul>
+                </div>
+
+                <div class="price-box2 center">
+                    <div class="price-strike2">Regular Price: $97</div>
+                    <div class="price-promo">Only $39</div>
+                </div>
+
+                <a href="checkout2?products=8:1" class="btn btn-pulse" 
+					title="Add Acoustic Protocol" style="text-decoration:none;">
+					<span>Purchase</span>
+					<i class="fas fa-arrow-right"></i>
+				</a>
                 
-                <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-8 flex items-center justify-center relative border-b border-gray-100">
-                        <div class="relative w-full max-w-sm md:max-w-2xl mx-auto transform hover:scale-105 transition duration-500 cursor-pointer">
-                        <img 
-                            src="https://cdn.jsdelivr.net/gh/vikcpa/neurozen/return_upsell/img/neurozen_acoustic_protocol.webp" 
-                            alt="The NeuroZen Acoustic Protocol" 
-                            class="w-full h-auto drop-shadow-2xl rounded-md"
-                        >
-                    </div>
+                <div class="guarantee">
+                    <div class="g-item"><i class="fas fa-lock"></i> Secure 256-bit Encryption</div>
+                    <div class="g-item"><i class="fas fa-check-circle"></i> 60-Day Money Back Guarantee</div>
                 </div>
 
-                <div class="p-6 md:p-10 flex flex-col justify-center text-center">
-                    <div class="flex justify-center">
-                        <div class="inline-block bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-full w-fit mb-4">
-                            VIP ONE-TIME OFFER
-                        </div>
-                    </div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-4">Clear "Electrical Stagnation" In 12 Minutes A Day</h4>
-                    <p class="text-gray-600 mb-6 leading-relaxed text-sm max-w-2xl mx-auto">
-                        Years of toxicity have left "roadblocks" in your neural pathways. NeuroZen acts as the fuel, but even the best fuel needs a clear highway.
-                        <br><br>
-                        This proprietary protocol uses <strong>Gamma Wave Entrainment</strong> to wake up your electrical system immediately, ensuring your neurons are wide open to absorb the Sidr Honey and Bacopa you just bought.
-                    </p>
-
-                    <div class="flex justify-center mb-8">
-                        <ul class="check-list space-y-3 text-gray-700 text-sm text-left inline-block">
-                            <li><strong>Zero Effort Required:</strong> Just listen and relax.</li>
-                            <li><strong>Medical-Grade Frequencies:</strong> Proprietary Gamma waves engineered to match NeuroZen.</li>
-                            <li><strong>Digital Instant Access:</strong> In your inbox in 2 minutes.</li>
-                        </ul>
-                    </div>
-
-                    <div class="flex items-end justify-center gap-4 mb-6 border-t border-gray-100 pt-6">
-                        <div class="text-gray-400 line-through text-lg">Regular Price: $97</div>
-                        <div class="text-3xl font-bold text-green-600">Only $39</div>
-                    </div>
-
-                    <button 
-						onclick="window.location.href='checkout2?products=8:1'" 
-						class="w-full bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-4 px-6 rounded-lg shadow-lg transform transition hover:-translate-y-1 btn-pulse flex items-center justify-center gap-3"
-                            title="Add Acoustic Protocol">
-                        <span>Purchase</span>
-                        <i class="fas fa-arrow-right text-lg"></i>
-                    </button>
-                    
-                    <div class="mt-4 flex items-center justify-center gap-4 text-xs text-gray-500">
-                        <div class="flex items-center gap-1"><i class="fas fa-lock"></i> Secure 256-bit Encryption</div>
-                        <div class="flex items-center gap-1"><i class="fas fa-check-circle"></i> 60-Day Money Back Guarantee</div>
-                    </div>
-
-                </div>
             </div>
         </div>
 
-  
-
-        <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto mt-12 opacity-50 grayscale hover:grayscale-0 transition duration-500">
-            <div class="flex flex-col items-center text-center">
-                <i class="fas fa-bolt text-3xl mb-2 text-neuro-teal"></i>
-                <span class="text-xs font-bold">Gamma<br>Entrainment</span>
+        <div class="feat-grid">
+            <div class="feat-item">
+                <i class="fas fa-bolt icon-lg"></i>
+                <span>Gamma<br>Entrainment</span>
             </div>
-            <div class="flex flex-col items-center text-center">
-                <i class="fas fa-brain text-3xl mb-2 text-neuro-teal"></i>
-                <span class="text-xs font-bold">Zero Effort<br>Protocol</span>
+            <div class="feat-item">
+                <i class="fas fa-brain icon-lg"></i>
+                <span>Zero Effort<br>Protocol</span>
             </div>
-            <div class="flex flex-col items-center text-center">
-                <i class="fas fa-user-md text-3xl mb-2 text-neuro-teal"></i>
-                <span class="text-xs font-bold">Doctor<br>Approved</span>
+            <div class="feat-item">
+                <i class="fas fa-user-md icon-lg"></i>
+                <span>Doctor<br>Approved</span>
             </div>
         </div>
 

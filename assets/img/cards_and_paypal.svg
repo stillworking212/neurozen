@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 60" width="100%" height="auto">
+  <defs>
+    <style>
+      .box { fill: white; stroke: #d1d5db; stroke-width: 1.5; rx: 6; }
+    </style>
+  </defs>
+
+  <g transform="translate(5, 5)">
+    <rect class="box" width="80" height="50" />
+    <image href="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/visa.svg" 
+           x="5" y="5" width="70" height="40" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <g transform="translate(95, 5)">
+    <rect class="box" width="80" height="50" />
+    <image href="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/mastercard.svg" 
+           x="5" y="5" width="70" height="40" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <g transform="translate(185, 5)">
+    <rect class="box" width="80" height="50" />
+    <image href="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/american-express.svg" 
+           x="5" y="5" width="70" height="40" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <g transform="translate(275, 5)">
+    <rect class="box" width="80" height="50" />
+    <image href="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/cards/discover.svg" 
+           x="5" y="5" width="70" height="40" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+  <g transform="translate(365, 5)">
+    <rect class="box" width="80" height="50" />
+    <image href="https://raw.githubusercontent.com/datatrans/payment-logos/master/assets/apm/paypal.svg" 
+           x="5" y="5" width="70" height="40" preserveAspectRatio="xMidYMid meet" />
+  </g>
+
+</svg>
